@@ -67,7 +67,7 @@ class FormCliente extends React.Component{
 										<InputMask 
 										mask="999.999.999-99"
 										value={this.state.cpf}
-										onChange={e => this.setState({nome: e.target.value})}/> 
+										onChange={e => this.setState({cpf: e.target.value})}/> 
 									</Form.Input>
 
 								</Form.Group>
@@ -81,7 +81,7 @@ class FormCliente extends React.Component{
 										<InputMask 
 										mask="(99) 9999.9999" 
 										value={this.state.foneCelular}
-				onChange={e => this.setState({cpf: e.target.value})}/> 
+										onChange={e => this.setState({foneCelular: e.target.value})}/> 
 									</Form.Input>
 
 									<Form.Input
@@ -91,7 +91,7 @@ class FormCliente extends React.Component{
 										<InputMask 
 										mask="(99) 9999.9999"
 										value={this.state.foneFixo}
-				onChange={e => this.setState({cpf: e.target.value})} /> 
+										onChange={e => this.setState({foneFixo: e.target.value})} /> 
 									</Form.Input>
 
                                     <Form.Input
@@ -99,7 +99,7 @@ class FormCliente extends React.Component{
                                         label='Data Nascimento'
                                         width={6}
 										value={this.state.dataNascimento}
-				onChange={e => this.setState({cpf: e.target.value})}
+										onChange={e => this.setState({dataNascimento: e.target.value})}
                                     >
                                         <InputMask 
                                             mask="99/99/9999" 
