@@ -37,8 +37,13 @@ const options = [
 class FormEntregador extends React.Component{
 	state = {
 		nome: null,
+<<<<<<< HEAD
 		cpf: null,
 		rg: null,
+=======
+		cpf:null,
+		rg:null,
+>>>>>>> 3e50bfae0ab7a30a22e2c6a56f4957dc934dc6aa
 		dataNascimento: null,
 		foneCelular: null,
 		foneFixo: null,
@@ -52,9 +57,45 @@ class FormEntregador extends React.Component{
 		enderecoUf: null,
 		enderecoComplemento: null,
 		ativo: null
+<<<<<<< HEAD
  
 	}
 	salvar = () => {
+=======
+		
+	}
+
+	salvar = () => {
+
+		let entregadorRequest = {
+
+			nome: this.state.nome,
+			cpf: this.state.cpf,
+			rg: this.state.rg,
+			dataNascimento: this.state.dataNascimento,
+			foneCelular: this.state.foneCelular,
+			foneFixo: this.state.foneFixo,
+			qtdEntregasRealizadas: this.state.qtdEntregasRealizadas,
+			valorFrete: this.state.valorFrete,
+			enderecoRua: this.state.enderecoRua,
+			enderecoNumero: this.state.enderecoNumero,
+			enderecoBairro: this.state.enderecoBairro,
+			enderecoCidade: this.state.enderecoCidade,
+			enderecoCep: this.state.enderecoCep,
+			enderecoUf: this.state.enderecoUf,
+			enderecoComplemento: this.state.enderecoComplemento,
+			ativo: this.state.ativo
+		}
+	
+		axios.post("http://localhost:8082/api/entregador", entregadorRequest)
+		.then((response) => {
+			console.log('Entregador cadastrado com sucesso.')
+		})
+		.catch((error) => {
+			console.log('Erro ao incluir o um entregador.')
+		})
+	}
+>>>>>>> 3e50bfae0ab7a30a22e2c6a56f4957dc934dc6aa
 
 		let entregadorRequest = {
 
@@ -170,8 +211,13 @@ class FormEntregador extends React.Component{
 										label='Fone Fixo'
                                         width={6}>
 										<InputMask 
+<<<<<<< HEAD
 										mask="(99) 9999.9999" value={this.state.foneFixo}
 										onChange={e => this.setState({foneFixo: e.target.value})}/> 
+=======
+										mask="(99) 9999.9999" value={this.state.nome}
+										onChange={e => this.setState({nome: e.target.value})}/> 
+>>>>>>> 3e50bfae0ab7a30a22e2c6a56f4957dc934dc6aa
 
 									</Form.Input>
 
@@ -179,7 +225,11 @@ class FormEntregador extends React.Component{
 										fluid
 										label='QTD Entregas Realizadas'
                                         width={6}
+<<<<<<< HEAD
                             
+=======
+                                        type="number"
+>>>>>>> 3e50bfae0ab7a30a22e2c6a56f4957dc934dc6aa
 										value={this.state.qtdEntregasRealizadas}
 										onChange={e => this.setState({qtdEntregasRealizadas: e.target.value})}>
 									</Form.Input>
@@ -188,7 +238,11 @@ class FormEntregador extends React.Component{
 										fluid
 										label='Valor Por Frete'
                                         width={6}
+<<<<<<< HEAD
 										
+=======
+										type="number"
+>>>>>>> 3e50bfae0ab7a30a22e2c6a56f4957dc934dc6aa
 										value={this.state.valorFrete}
 										onChange={e => this.setState({valorFrete: e.target.value})}> 
 									</Form.Input>
@@ -210,7 +264,11 @@ class FormEntregador extends React.Component{
 										fluid
 										label='Número'
                                         width={6}
+<<<<<<< HEAD
 		
+=======
+										type="number"
+>>>>>>> 3e50bfae0ab7a30a22e2c6a56f4957dc934dc6aa
 										value={this.state.enderecoNumero}
 										onChange={e => this.setState({enderecoNumero: e.target.value})}> 
 									</Form.Input>
@@ -251,7 +309,19 @@ class FormEntregador extends React.Component{
 
 								</Form.Group>
 
+<<<<<<< HEAD
 								
+=======
+								<Form.Group>
+									<Form.Input
+										fluid
+										label='UF'
+                                        width={16}
+										value={this.state.enderecoUf}
+										onChange={e => this.setState({enderecoUf: e.target.value})}>
+									</Form.Input>
+								</Form.Group>
+>>>>>>> 3e50bfae0ab7a30a22e2c6a56f4957dc934dc6aa
 
 								<Form.Group>
 										<Form.Field
