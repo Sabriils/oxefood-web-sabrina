@@ -1,9 +1,10 @@
+import axios from "axios";
 import React from "react";
 import InputMask from 'react-input-mask';
-import { Button, Container, Divider, Form, Icon, Select, Radio} from 'semantic-ui-react';
+import { Button, Container, Divider, Form, Icon, Radio, Select } from 'semantic-ui-react';
 
 const options = [
-	{ key: "AC", text: "Acre", value: "AC" },
+  { key: "AC", text: "Acre", value: "AC" },
   { key: "AL", text: "Alagoas", value: "AL" },
   { key: "AP", text: "Amapá", value: "AP" },
   { key: "AM", text: "Amazonas", value: "AM" },
@@ -34,9 +35,57 @@ const options = [
 
 
 class FormEntregador extends React.Component{
-	state = {}
+	state = {
+		nome: null,
+		cpf: null,
+		rg: null,
+		dataNascimento: null,
+		foneCelular: null,
+		foneFixo: null,
+		qtdEntregasRealizadas: null,
+		valorFrete: null,
+		enderecoRua: null,
+		enderecoNumero: null,
+		enderecoBairro: null,
+		enderecoCidade: null,
+		enderecoCep: null,
+		enderecoUf: null,
+		enderecoComplemento: null,
+		ativo: null
+ 
+	}
+	salvar = () => {
 
-	handleChange = (e, { value }) => this.setState({ value })
+		let entregadorRequest = {
+
+			nome: this.state.nome,
+			cpf: this.state.cpf,
+			rg: this.state.rg,
+			dataNascimento: this.state.dataNascimento,
+			foneCelular: this.state.foneCelular,
+			foneFixo: this.state.foneFixo,
+			qtdEntregasRealizadas: this.state.qtdEntregasRealizadas,
+			valorFrete: this.state.valorFrete,
+			enderecoRua: this.state.enderecoRua,
+			enderecoNumero: this.state.enderecoNumero,
+			enderecoBairro: this.state.enderecoBairro,
+			enderecoCidade: this.state.enderecoCidade,
+			enderecoCep: this.state.enderecoCep,
+			enderecoUf: this.state.enderecoUf,
+			enderecoComplemento: this.state.enderecoComplemento,
+			ativo: this.state.ativo
+		}
+	
+		axios.post("http://localhost:8082/api/entregador", entregadorRequest)
+		.then((response) => {
+			console.log('Entregador cadastrado com sucesso.')
+		})
+		.catch((error) => {
+			console.log('Erro ao incluir o um entregador.')
+		})
+	}
+
+	
     render(){
 		const { value } = this.state
         return(
@@ -62,6 +111,8 @@ class FormEntregador extends React.Component{
                                         width={11}
 										label='Nome'
 										maxLength="100"
+										value={this.state.nome}
+										onChange={e => this.setState({nome: e.target.value})}
 									/>
 
 									<Form.Input
@@ -70,7 +121,9 @@ class FormEntregador extends React.Component{
                                         width={5}
 										label='CPF'>
 										<InputMask 
-										mask="999.999.999-99"/> 
+										mask="999.999.999-99"
+										value={this.state.cpf}
+										onChange={e => this.setState({cpf: e.target.value})}/> 
 									</Form.Input>
 
                                     <Form.Input
@@ -78,7 +131,9 @@ class FormEntregador extends React.Component{
                                         width={5}
 										label='RG'>
 										<InputMask 
-										mask="99.999.999-9"/> 
+										mask="99.999.999-9" 
+										value={this.state.rg}
+										onChange={e => this.setState({rg: e.target.value})}/>
 									</Form.Input>
 
 								</Form.Group>
@@ -94,6 +149,8 @@ class FormEntregador extends React.Component{
                                             mask="99/99/9999" 
                                             maskChar={null}
                                             placeholder="Ex: 20/03/1985"
+											value={this.state.dataNascimento}
+											onChange={e => this.setState({dataNascimento: e.target.value})}
                                         /> 
                                     </Form.Input>
 
@@ -103,7 +160,9 @@ class FormEntregador extends React.Component{
 										label='Fone Celular'
                                         width={6}>
 										<InputMask 
-										mask="(99) 9999.9999" /> 
+										mask="(99) 9999.9999" 
+										value={this.state.foneCelular}
+										onChange={e => this.setState({foneCelular: e.target.value})}/> 
 									</Form.Input>
 
                                     <Form.Input
@@ -111,21 +170,27 @@ class FormEntregador extends React.Component{
 										label='Fone Fixo'
                                         width={6}>
 										<InputMask 
-										mask="(99) 9999.9999" /> 
+										mask="(99) 9999.9999" value={this.state.foneFixo}
+										onChange={e => this.setState({foneFixo: e.target.value})}/> 
+
 									</Form.Input>
 
                                     <Form.Input
 										fluid
 										label='QTD Entregas Realizadas'
                                         width={6}
-                                        type="number">
+                            
+										value={this.state.qtdEntregasRealizadas}
+										onChange={e => this.setState({qtdEntregasRealizadas: e.target.value})}>
 									</Form.Input>
 
 									<Form.Input
 										fluid
 										label='Valor Por Frete'
                                         width={6}
-										type="number"> 
+										
+										value={this.state.valorFrete}
+										onChange={e => this.setState({valorFrete: e.target.value})}> 
 									</Form.Input>
 
 								</Form.Group>
@@ -137,13 +202,17 @@ class FormEntregador extends React.Component{
                                         width={11}
 										label='Rua'
 										maxLength="100"
+										value={this.state.enderecoRua}
+										onChange={e => this.setState({enderecoRua: e.target.value})}
 									/>
 
 									<Form.Input
 										fluid
 										label='Número'
                                         width={6}
-										type="number"> 
+		
+										value={this.state.enderecoNumero}
+										onChange={e => this.setState({enderecoNumero: e.target.value})}> 
 									</Form.Input>
 
 								</Form.Group>
@@ -155,6 +224,9 @@ class FormEntregador extends React.Component{
                                         width={11}
 										label='Bairro'
 										maxLength="100"
+										value={this.state.enderecoBairro}
+										onChange={e => this.setState({enderecoBairro: e.target.value})}
+
 									/>
 
                                     <Form.Input
@@ -162,6 +234,9 @@ class FormEntregador extends React.Component{
                                         width={11}
 										label='Cidade'
 										maxLength="100"
+										value={this.state.enderecoCidade}
+										onChange={e => this.setState({enderecoCidade: e.target.value})}
+
 									/>
 
 									<Form.Input
@@ -169,18 +244,14 @@ class FormEntregador extends React.Component{
 										label='CEP'
                                         width={6}> 
                                         <InputMask 
-										mask="99.999-999"/> 
+										mask="99999-999"
+										value={this.state.enderecoCep}
+										onChange={e => this.setState({enderecoCep: e.target.value})}/> 
 									</Form.Input>
 
 								</Form.Group>
 
-								<Form.Group>
-									<Form.Input
-										fluid
-										label='UF'
-                                        width={16}>
-									</Form.Input>
-								</Form.Group>
+								
 
 								<Form.Group>
 										<Form.Field
@@ -189,13 +260,17 @@ class FormEntregador extends React.Component{
 										width={16}
 										options={options}
 										placeholder='selecione'
+										value={this.state.enderecoUf}
+										onChange={e => this.setState({enderecoUf: e.target.value})}
 									/>
 								</Form.Group>
 								<Form.Group>
 									<Form.Input
 										fluid
 										label='Complemento'
-                                        width={16}>
+                                        width={16}
+										value={this.state.enderecoComplemento}
+										onChange={e => this.setState({enderecoComplemento: e.target.value})}>
 									</Form.Input>
 								</Form.Group>
 								<Form.Group inline>
