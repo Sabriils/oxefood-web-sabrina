@@ -20,7 +20,8 @@ class MenuSistema extends React.Component{
                        active={this.state.activeItem === 'home'}
                        onClick={this.handleItemClick}
                        as={Link}
-                       to='/'
+                       to='/list-cliente'
+
                    />
                   
       

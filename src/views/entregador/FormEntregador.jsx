@@ -73,7 +73,7 @@ class FormEntregador extends React.Component{
 			enderecoCep: this.state.enderecoCep,
 			enderecoUf: this.state.enderecoUf,
 			enderecoComplemento: this.state.enderecoComplemento,
-			ativo: this.state.ativo
+			ativo: true
 		}
 	
 		axios.post("http://localhost:8082/api/entregador", entregadorRequest)
@@ -281,16 +281,16 @@ class FormEntregador extends React.Component{
 										<Form.Radio
 											control={Radio}
 											label='Sim'
-											value='si'
-											checked={value === 'si'}
-											onChange={this.handleChange}
+											checked={this.state.ativo}
+											value={this.state.ativo}
+										onChange={e => this.setState({ativo:true})}
 										/>
 										<Form.Radio
 											control={Radio}
 											label='Não'
-											value='no'
-											checked={value === 'no'}
-											onChange={this.handleChange}
+											checked={!this.state.ativo}
+											value={this.state.ativo}
+											onChange={e => this.setState({ativo:false})}
 										/>
 								</Form.Group>
 
