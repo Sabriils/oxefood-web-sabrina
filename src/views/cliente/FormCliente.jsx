@@ -99,13 +99,14 @@ class FormCliente extends React.Component{
                                         fluid
                                         label='Data Nascimento'
                                         width={6}
-										value={this.state.dataNascimento}
-										onChange={e => this.setState({dataNascimento: e.target.value})}
+										
                                     >
                                         <InputMask 
                                             mask="99/99/9999" 
                                             maskChar={null}
                                             placeholder="Ex: 20/03/1985"
+											value={this.state.dataNascimento}
+										onChange={e => this.setState({dataNascimento: e.target.value})}
                                         /> 
                                     </Form.Input>
 

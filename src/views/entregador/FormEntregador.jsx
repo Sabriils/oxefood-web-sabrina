@@ -264,7 +264,7 @@ class FormEntregador extends React.Component{
 										options={options}
 										placeholder='selecione'
 										value={this.state.enderecoUf}
-										onChange={e => this.setState({enderecoUf: e.target.value})}
+										onChange={(e , {value}) =>  this.setState({enderecoUf: value})}
 									/>
 								</Form.Group>
 								<Form.Group>
