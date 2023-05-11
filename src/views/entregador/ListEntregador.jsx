@@ -19,7 +19,7 @@ class ListEntregador extends React.Component{
 
    carregarLista = () => {
 
-    axios.get("http://localhost:8082/apiEntregador")
+    axios.get("http://localhost:8082/api/entregador")
     .then((response) => {
        
         this.setState({
@@ -65,7 +65,7 @@ formatarData = (dataParam) => {
                             floated='right'
                         >
                             <Icon name='clipboard outline' />
-                            <Link to={'/formEntregador'}>Novo</Link>
+                            <Link to={'/form-entregador'}>Novo</Link>
                         </Button>
                      
                         <br/><br/><br/>
@@ -80,7 +80,7 @@ formatarData = (dataParam) => {
                                   <Table.HeaderCell>Data de Nascimento</Table.HeaderCell>
                                   <Table.HeaderCell>Fone Celular</Table.HeaderCell>
                                   <Table.HeaderCell>Fone Fixo</Table.HeaderCell>
-                                  <Table.HeaderCell>QTD Entregas Realizadas</Table.HeaderCell>
+                                {/* <Table.HeaderCell>QTD Entregas Realizadas</Table.HeaderCell>
                                   <Table.HeaderCell>Valor Por Frete</Table.HeaderCell>
                                   <Table.HeaderCell>Rua</Table.HeaderCell>
                                   <Table.HeaderCell>Número</Table.HeaderCell>
@@ -89,7 +89,7 @@ formatarData = (dataParam) => {
                                   <Table.HeaderCell>CEP</Table.HeaderCell>
                                   <Table.HeaderCell>UF</Table.HeaderCell>
                                   <Table.HeaderCell>Complemento</Table.HeaderCell>
-                                  <Table.HeaderCell>Ativo</Table.HeaderCell>
+                                  <Table.HeaderCell>Ativo</Table.HeaderCell>*/}
                                   <Table.HeaderCell textAlign='center' width={2}>Ações</Table.HeaderCell>
                               </Table.Row>
                           </Table.Header>
@@ -104,7 +104,8 @@ formatarData = (dataParam) => {
                                       <Table.Cell>{Entregador.rg}</Table.Cell>
                                       <Table.Cell>{this.formatarData(Entregador.dataNascimento)}</Table.Cell>
                                       <Table.Cell>{Entregador.foneCelular}</Table.Cell>
-                                      <Table.Cell>{Entregador.qtdEntregasRealizadas}</Table.Cell>
+                                      <Table.Cell>{Entregador.foneFixo}</Table.Cell>
+                                     {/* <Table.Cell>{Entregador.qtdEntregasRealizadas}</Table.Cell>
                                       <Table.Cell>{Entregador.valorFrete}</Table.Cell>
                                       <Table.Cell>{Entregador.enderecoRua}</Table.Cell>
                                       <Table.Cell>{Entregador.enderecoNumero}</Table.Cell>
@@ -113,7 +114,7 @@ formatarData = (dataParam) => {
                                       <Table.Cell>{Entregador.enderecoCep}</Table.Cell>
                                       <Table.Cell>{Entregador.enderecoUf}</Table.Cell>
                                       <Table.Cell>{Entregador.enderecoComplemento}</Table.Cell>
-                                      <Table.Cell>{Entregador.ativo}</Table.Cell>
+                              <Table.Cell>{Entregador.ativo}</Table.Cell>*/}
                                       <Table.Cell textAlign='center'>
                                          
                                           <Button
@@ -143,4 +144,4 @@ formatarData = (dataParam) => {
    }
 }
 
-export default ListEntegador;
+export default ListEntregador;
