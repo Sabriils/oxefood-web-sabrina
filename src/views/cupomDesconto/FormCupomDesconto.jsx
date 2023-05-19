@@ -8,7 +8,7 @@ class FormCupomDesconto extends React.Component{
 
 	state = {
 
-		codidoDesconto: null,
+		codigoDesconto: null,
 		percentualDesconto: null,
 		valorDesconto: null,
 		valorMinimoPedidoPermitido: null,
@@ -20,7 +20,7 @@ class FormCupomDesconto extends React.Component{
 
 		let cupomDescontoRequest = {
 
-			codidoDesconto: this.state.codidoDesconto,
+			codigoDesconto: this.state.codigoDesconto,
 			percentualDesconto: this.state.percentualDesconto,
 			valorDesconto: this.state.valorDesconto,
 			valorMinimoPedidoPermitido: this.state.valorMinimoPedidoPermitido,
@@ -62,8 +62,8 @@ class FormCupomDesconto extends React.Component{
 										fluid
 										label='Código'
                                         width={6}
-										value={this.state.codidoDesconto}
-										onChange={e => this.setState({codidoDesconto: e.target.value})}> 
+										value={this.state.codigoDesconto}
+										onChange={e => this.setState({codigoDesconto: e.target.value})}> 
 									</Form.Input>
 
 
