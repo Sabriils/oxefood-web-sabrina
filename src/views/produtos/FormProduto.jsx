@@ -1,53 +1,80 @@
 import axios from "axios";
-import React from "react";
+import React, {useState, useEffect}from "react";
 import InputMask from 'react-input-mask';
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Button, Container, Divider, Form, FormGroup, Icon } from 'semantic-ui-react';
 
-class FormProduto extends React.Component{
-state = {
-	codigo: null,
-	titulo: null,
-	descricao: null,
-	valorUnitario: null,
-	tempoEntregaMinimo: null,
-	tempoEntregaMaximo: null
-}
+export default function FormProduto() {
+
+
 	
-salvar = () => {
+	const { state } = useLocation();
+	const [idProduto, setIdProduto] = useState();
+	const [codigo, setCodigo] = useState();
+	const [titulo, setTitulo] = useState();
+	const [descricao, setDescricao] = useState();
+	const [valorUnitario, setValorUnitario] = useState();
+	const [tempoEntregaMinimo, setTempoEntregaMinimo] = useState();
+	const [tempoEntregaMaximo, setTempoEntregaMaximo] = useState();
+
+
+	useEffect(() => {
+		if (state != null && state.id != null) {
+			axios.get("http://localhost:8082/api/produto/" + state.id)
+				 .then((response) => {
+						   setIdProduto(response.data.id)
+						   setCodigo(response.data.codigo)
+						   setTitulo(response.data.titulo)
+						   setDescricao(response.data.descricao)
+						   setValorUnitario(response.data.valorUnitario)
+						   setTempoEntregaMinimo(response.data.tempoEntregaMinimo)
+						   setTempoEntregaMaximo(response.data.tempoEntregaMaximo)
+			})
+		}
+}, [state])
+
+
+	
+function salvar () {
 
 	let produtoRequest = {
 
-		codigo: this.state.codigo,
-		titulo: this.state.titulo,
-		descricao: this.state.descricao,
-		valorUnitario: this.state.valorUnitario,
-		tempoEntregaMinimo: this.state.tempoEntregaMinimo,
-		tempoEntregaMaximo: this.state.tempoEntregaMaximo,
+		codigo: codigo,
+		titulo: titulo,
+		descricao: descricao,
+		valorUnitario: valorUnitario,
+		tempoEntregaMinimo: tempoEntregaMinimo,
+		tempoEntregaMaximo: tempoEntregaMaximo,
 	}
 
-	axios.post("http://localhost:8082/api/produto", produtoRequest)
-	.then((response) => {
-		console.log('Produto cadastrado com sucesso.')
-	})
-	.catch((error) => {
-		console.log('Erro ao incluir o um Produto.')
-	})
+	if (idProduto != null) { //Alteração:
+		axios.put("http://localhost:8082/api/produto/" + idProduto, produtoRequest)
+		.then((response) => { console.log('Produto alterado com sucesso.') })
+		.catch((error) => { console.log('Erro ao alter um produto.') })
+	} else { //Cadastro:
+		axios.post("http://localhost:8082/api/produto/", produtoRequest)
+		.then((response) => { console.log('Produto cadastrado com sucesso.') })
+		.catch((error) => { console.log('Erro ao incluir o produto.') })
+	}
+
 }
 
 	
-	
-    render(){
+ 
         return(
             <div>
 
                 <div style={{marginTop: '3%'}}>
+						<Container textAlign='justified' >
 
-                    <Container textAlign='justified' >
+					{ idProduto === undefined &&
+						<h2> <span style={{color: 'darkgray'}}> Produto &nbsp;<Icon name='angle double right' size="small" /> </span> Cadastro</h2>
+					}
+					{ idProduto != undefined &&
+						<h2> <span style={{color: 'darkgray'}}> Produto &nbsp;<Icon name='angle double right' size="small" /> </span> Alteração</h2>
+					}
 
-                        <h2> <span style={{color: 'darkgray'}}> Produto &nbsp;<Icon name='angle double right' size="small" /> </span> Cadastro </h2>
-
-                        <Divider />
+					<Divider />
 
 						<div style={{marginTop: '4%'}}>
 
@@ -61,8 +88,8 @@ salvar = () => {
 										label='Título'
 										maxLength="100"
                                         placeholder="Informe o título do produto"
-										value={this.state.titulo}
-										onChange={e => this.setState({titulo: e.target.value})}
+										value={titulo}
+										onChange={e =>setTitulo(e.target.value)}
 									/>
 
 									<Form.Input
@@ -71,8 +98,8 @@ salvar = () => {
 										label='Código do produto'>
 										<InputMask 
 										mask="9999-9999"
-										value={this.state.codigo}
-										onChange={e => this.setState({codigo: e.target.value})}/> 
+										value={codigo}
+										onChange={e => setCodigo(e.target.value)}/> 
 									</Form.Input>
 
 								</Form.Group>
@@ -81,8 +108,8 @@ salvar = () => {
 										<Form.TextArea width="16" 
 										label='Descrição' 
 										placeholder='informe a descrição do produto' 
-										value={this.state.descricao}
-										onChange={e => this.setState({descricao: e.target.value})}/>
+										value={descricao}
+										onChange={e => setDescricao(e.target.value)}/>
 
                                 </FormGroup>
 								<Form.Group>
@@ -96,8 +123,8 @@ salvar = () => {
                                         width={6}>
 										<InputMask 
 										mask="99.99"
-										value={this.state.valorUnitario}
-										onChange={e => this.setState({valorUnitario: e.target.value})} /> 
+										value={valorUnitario}
+										onChange={e => setValorUnitario(e.target.value)} /> 
 
                                         
 
@@ -113,8 +140,8 @@ salvar = () => {
                                             mask="99" 
                                             maskChar={null}
                                             placeholder="Ex: 30"
-											value={this.state.tempoEntregaMinimo}
-											onChange={e => this.setState({tempoEntregaMinimo: e.target.value})}
+											value={tempoEntregaMinimo}
+											onChange={e => setTempoEntregaMinimo( e.target.value)}
                                         /> 
 
     
@@ -129,8 +156,8 @@ salvar = () => {
                                             mask="99" 
                                             maskChar={null}
                                             placeholder="Ex: 40"
-											value={this.state.tempoEntregaMaximo}
-										onChange={e => this.setState({tempoEntregaMaximo: e.target.value})}
+											value={tempoEntregaMaximo}
+										onChange={e => this.setTempoEntregaMaximo(e.target.value)}
 
                                         /> 
 
@@ -149,7 +176,7 @@ salvar = () => {
 										icon
 										labelPosition='left'
 										color='orange'
-										onClick={this.listar}
+										
 										>
 										<Icon name='reply' />
 										<Link to='/list-produto'>Voltar</Link>
@@ -165,7 +192,7 @@ salvar = () => {
 											labelPosition='left'
 											color='blue'
 											floated='right'
-											onClick={this.salvar}
+											onClick={() => salvar ()}
 										>
 											<Icon name='save' />
 											Salvar
@@ -182,6 +209,5 @@ salvar = () => {
 			</div>
 		)
 	}
-}
 
-export default FormProduto;
+
