@@ -83,6 +83,9 @@ formatarData = (dataParam) => {
 
      return dataFormatada
  };
+
+
+  
  render(){
     return(
         <div>
@@ -116,6 +119,7 @@ formatarData = (dataParam) => {
                           <Table.Header>
                               <Table.Row>
                                   <Table.HeaderCell>Nome</Table.HeaderCell>
+                                  <Table.HeaderCell>Endereço</Table.HeaderCell>
                                   <Table.HeaderCell>CPF</Table.HeaderCell>
                                   <Table.HeaderCell>Data de Nascimento</Table.HeaderCell>
                                   <Table.HeaderCell>Fone Celular</Table.HeaderCell>
@@ -130,6 +134,19 @@ formatarData = (dataParam) => {
 
                                   <Table.Row>
                                       <Table.Cell>{cliente.nome}</Table.Cell>
+                        
+                                    {/*// Esta parte verifica se a propriedade "endereco" do objeto "cliente" existe. 
+                                    Se existir, então a propriedade "rua" do objeto "endereco" é exibida. 
+                              Caso contrário, é exibida uma string vazia. */}
+                                    <Table.Cell>
+                                              {`${cliente.endereco ? cliente.endereco.rua : ''}, 
+                                                ${cliente.endereco ? cliente.endereco.numero : ''},
+                                                ${cliente.endereco ? cliente.endereco.bairro : ''}, 
+                                                ${cliente.endereco ? cliente.endereco.cep : ''}, 
+                                                ${cliente.endereco ? cliente.endereco.cidade : ''}, 
+                                                ${cliente.endereco ? cliente.endereco.estado : ''}, 
+                                                ${cliente.endereco ? cliente.endereco.complemento : ''}`}</Table.Cell>
+
                                       <Table.Cell>{cliente.cpf}</Table.Cell>
                                       <Table.Cell>{this.formatarData(cliente.dataNascimento)}</Table.Cell>
                                       <Table.Cell>{cliente.foneCelular}</Table.Cell>

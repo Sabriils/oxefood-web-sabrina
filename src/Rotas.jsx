@@ -14,14 +14,20 @@ import FormCupomDesconto from './views/cupomDesconto/FormCupomDesconto';
 import ListCupomDesconto from './views/cupomDesconto/ListCupomDesconto';
 import FormCategoriaProduto from './views/categoriaproduto/FormCategoriaProduto';
 import ListCategoriaProduto from './views/categoriaproduto/ListCategoriaProduto';
+import FormEnderecoCliente from './views/enderecocliente/FormEnderecoCliente';
+import ListEnderecoCliente from './views/enderecocliente/ListEnderecoCliente';
 
 function Rotas() {
     return (
         <>
             <Routes>
                 <Route path="/" element={ <Home/> } />
+                
                 <Route path="list-cliente" element={ <ListCliente/> } />
                 <Route path="form-cliente" element={ <FormCliente/> } />
+
+                <Route path="form-endereco-cliente" element={ <FormEnderecoCliente/> } />
+                <Route path="list-endereco-cliente" element={ <ListEnderecoCliente/> } />
 
                 <Route path="list-produto" element={ <ListProduto/> } />
                 <Route path="form-produto" element={ <FormProduto/> } />

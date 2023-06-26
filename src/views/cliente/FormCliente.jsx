@@ -13,6 +13,9 @@ export default function FormCliente (){
 			const [dataNascimento, setDataNascimento] = useState();
 			const [foneCelular, setFoneCelular] = useState();
 			const [foneFixo, setFoneFixo] = useState();
+			const [listaEndereco, setListaEndereco] = useState([]);
+  			const [idEndereco, setIdEndereco] = useState();
+
 	
 
 			useEffect(() => {
@@ -25,8 +28,32 @@ export default function FormCliente (){
 								   setDataNascimento(response.data.dataNascimento)
 								   setFoneCelular(response.data.foneCelular)
 								   setFoneFixo(response.data.foneFixo)
+								   setIdEndereco(response.data.Endereco.id)
 					})
 				}
+
+			{/* Para exibir todas as propriedades, é preciso criar objetos
+			 	separados para cada propriedade dentro do map.
+			 	estamos criando um objeto para cada endereço retornado pela API. 
+				O objeto possui duas propriedades: text e value.*/}
+
+				axios.get("http://localhost:8082/api/enderecocliente")
+       .then((response) => {
+           const dropDownEndereco = response.data.map(ed => ({
+
+			text: `${ed.rua}, 
+			${ed.numero}, 
+			${ed.bairro}, 
+			${ed.cep}, 
+			${ed.cidade}, 
+			${ed.estado}, 
+			${ed.complemento}`,
+			value: ed.id
+
+			}));
+           setListaEndereco(dropDownEndereco);
+       })
+
 		}, [state])
  
 
@@ -34,6 +61,7 @@ export default function FormCliente (){
 
 		let clienteRequest = {
 
+			idEndereco: idEndereco,
 			nome: nome,
 			cpf: cpf,
 			dataNascimento: dataNascimento,
@@ -88,6 +116,19 @@ export default function FormCliente (){
 										value={nome}
 										onChange={e => setNome(e.target.value)}
 									/>
+
+								<Form.Select
+									required
+									fluid
+									tabIndex='3'
+									placeholder='Selecione'
+									label='Endereço'
+									options={listaEndereco}
+									value={idEndereco}
+									onChange={(e,{value}) => {
+										setIdEndereco(value)
+									}}
+								/>
 
 									<Form.Input
 										fluid

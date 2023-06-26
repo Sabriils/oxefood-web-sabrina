@@ -73,7 +73,7 @@ export default function FormCategoriaProduto () {
                                 fluid
                                 label='Descrição'
                                 maxLength="200"
-                                value={descricao}
+                                value={descricao || ' '}
                                 onChange={e => setDescricao(e.target.value)}
                             />
 

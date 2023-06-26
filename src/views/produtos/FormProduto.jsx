@@ -38,7 +38,8 @@ export default function FormProduto() {
 
 		axios.get("http://localhost:8082/api/categoriaproduto")
        .then((response) => {
-           const dropDownCategorias = response.data.map(c => ({ text: c.descricao, value: c.id }));
+           const dropDownCategorias = response.data.map(c => ({ 
+			text: c.descricao, value: c.id }));
            setListaCategoria(dropDownCategorias);
        })
 

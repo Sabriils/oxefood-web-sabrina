@@ -114,8 +114,8 @@ formatarData = (dataParam) => {
                               <Table.Row>
 
                                   <Table.HeaderCell>Código do Produto</Table.HeaderCell>
-                                  <Table.HeaderCell>Título</Table.HeaderCell>
                                   <Table.HeaderCell>Categoria</Table.HeaderCell>
+                                  <Table.HeaderCell>Título</Table.HeaderCell>
                                   <Table.HeaderCell>Descrição</Table.HeaderCell>
                                   <Table.HeaderCell>Valor Unitário</Table.HeaderCell>
                                   <Table.HeaderCell>Tempo de Entrega Mínimo em Minutos</Table.HeaderCell>
@@ -131,7 +131,7 @@ formatarData = (dataParam) => {
 
                                   <Table.Row key={produto.id}>
                                       <Table.Cell>{produto.codigo}</Table.Cell>
-                                      <Table.Cell>{produto.categoria.descricao}</Table.Cell>
+                                      <Table.Cell>{produto.categoria ? produto.categoria.descricao : ''}</Table.Cell>
                                       <Table.Cell>{produto.titulo}</Table.Cell>
                                       <Table.Cell>{produto.descricao}</Table.Cell>
                                       <Table.Cell>{produto.valorUnitario}</Table.Cell>

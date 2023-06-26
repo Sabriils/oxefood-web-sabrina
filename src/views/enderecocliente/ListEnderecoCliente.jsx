@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Button, Container, Divider, Header, Icon, Modal, Table } from 'semantic-ui-react';
 
 
-export default function ListCategoriaProduto () {
+export default function ListEnderecoCliente () {
 
     const [lista, setLista] = useState();
     const [openModal, setOpenModal] = useState(false);
@@ -18,7 +18,7 @@ export default function ListCategoriaProduto () {
 
     function carregarLista () {
 
-        axios.get("http://localhost:8082/api/categoriaproduto")
+        axios.get("http://localhost:8082/api/enderecocliente")
         .then((response) => {
             setLista(response.data)
         })
@@ -33,20 +33,20 @@ export default function ListCategoriaProduto () {
 
     async function remover() {
 
-        await axios.delete("http://localhost:8082/api/categoriaproduto/" + idRemover)
+        await axios.delete("http://localhost:8082/api/enderecocliente/" + idRemover)
         .then((response) => {
     
             setOpenModal(false)
-            console.log('Categoria de produto removida com sucesso.')
+            console.log('Endereço de cliente removida com sucesso.')
     
-            axios.get("http://localhost:8082/api/categoriaproduto")
+            axios.get("http://localhost:8082/api/enderecocliente")
             .then((response) => {
                 setLista(response.data)
             })
         })
         .catch((error) => {
             setOpenModal(false)
-            console.log('Erro ao remover uma categoria de produto.')
+            console.log('Erro ao remover um endereço de cliente.')
         })
     };
 
@@ -57,7 +57,7 @@ export default function ListCategoriaProduto () {
 
                 <Container textAlign='justified' >
 
-                    <h2> Categoria de Produto</h2>
+                    <h2> Enderço de cliente</h2>
 
                     <Divider />
 
@@ -70,7 +70,8 @@ export default function ListCategoriaProduto () {
                             icon='clipboard outline'
                             floated='right'
                             as={Link} 
-                            to='/form-categoria-produto'
+                            to='/form-endereco-cliente'
+                           
                         />
 
                         <br/><br/><br/>
@@ -79,35 +80,47 @@ export default function ListCategoriaProduto () {
 
                             <Table.Header>
                                 <Table.Row>
-                                    <Table.HeaderCell>Descrição</Table.HeaderCell>
+                                <Table.HeaderCell>Rua</Table.HeaderCell>
+                                <Table.HeaderCell>Número</Table.HeaderCell>
+                                <Table.HeaderCell>Bairro</Table.HeaderCell>
+                                <Table.HeaderCell>CEP</Table.HeaderCell>
+                                <Table.HeaderCell>Cidade</Table.HeaderCell>
+                                <Table.HeaderCell>Estado</Table.HeaderCell>
+                                <Table.HeaderCell>Complemento</Table.HeaderCell>
                                     <Table.HeaderCell textAlign='center' width={2}>Ações</Table.HeaderCell>
                                 </Table.Row>
                             </Table.Header>
                         
                             <Table.Body>
 
-                                { lista !== undefined && lista.map(cp => (
+                                { lista !== undefined && lista.map(ed => (
 
-                                    <Table.Row key={cp.id}>
-                                        <Table.Cell>{cp.descricao}</Table.Cell>
+                                    <Table.Row key={ed.id}>
+                                        <Table.Cell>{ed.rua}</Table.Cell>
+                                        <Table.Cell>{ed.numero}</Table.Cell>
+                                        <Table.Cell>{ed.bairro}</Table.Cell>
+                                        <Table.Cell>{ed.cep}</Table.Cell>
+                                        <Table.Cell>{ed.cidade}</Table.Cell>
+                                        <Table.Cell>{ed.estado}</Table.Cell>
+                                        <Table.Cell>{ed.complemento}</Table.Cell>
                                         <Table.Cell textAlign='center'>
                                             
                                             <Button
                                                 inverted
                                                 circular
                                                 color='green'
-                                                title='Clique aqui para editar os dados desta categoria de produto'
+                                                title='Clique aqui para editar os dados deste endereço de cliente'
                                                 icon> 
-                                                    <Link to="/form-categoria-produto" state={{id: cp.id}} style={{color: 'green'}}> <Icon name='edit' /> </Link>
+                                                    <Link to="/form-endereco-cliente" state={{id: ed.id}} style={{color: 'green'}}> <Icon name='edit' /> </Link>
                                             </Button> &nbsp;
 
                                             <Button
                                                 inverted
                                                 circular
                                                 color='red'
-                                                title='Clique aqui para remover esta categoria de produto'
+                                                title='Clique aqui para remover este endereço de cliente'
                                                 icon
-                                                onClick={e => confirmaRemover(cp.id)}> 
+                                                onClick={e => confirmaRemover(ed.id)}> 
                                                     <Icon name='trash' />
                                             </Button>
 
