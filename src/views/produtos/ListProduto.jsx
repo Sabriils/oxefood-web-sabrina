@@ -1,15 +1,20 @@
 import axios from 'axios';
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button, Container, Divider, Header, Icon, Modal, Table } from 'semantic-ui-react';
+import { Button, Container, Divider, Header, Icon, Modal, Table, Form, Menu, Segment } from 'semantic-ui-react';
 
 class ListProduto extends React.Component{
 
    state = {
         openModal: false,
         idRemover: null,
-       listaProdutos: []
-      
+        listaProdutos: [],
+        menuFiltro: false,
+        codigo: '',
+        titulo: '',
+        idCategoria: '',
+        listaCategoriaProduto: []
+
    }
 
    componentDidMount = () => {
@@ -64,25 +69,82 @@ class ListProduto extends React.Component{
             listaProdutos: response.data
         })
     })
+    
+
+    axios.get("http://localhost:8082/api/categoriaproduto")
+    .then((response) => {
+
+        const dropDownCategorias = [];
+        dropDownCategorias.push({ text: '', value: '' });
+        response.data.map(c => (
+            dropDownCategorias.push({ text: c.descricao, value: c.id })
+        ))
+     
+        this.setState({
+            listaCategoriaProduto: dropDownCategorias
+        })
+    })
 
 };
 
-formatarData = (dataParam) => {
+        formatarData = (dataParam) => {
 
-     if (dataParam == null || dataParam == '') {
-         return ''
-     }
-     
-     let dia = dataParam.substr(8,2);
-     let mes = dataParam.substr(5,2);
-     let ano = dataParam.substr(0,4);
-     let dataFormatada = dia + '/' + mes + '/' + ano;
+            if (dataParam == null || dataParam == '') {
+                return ''
+            }
+            
+            let dia = dataParam.substr(8,2);
+            let mes = dataParam.substr(5,2);
+            let ano = dataParam.substr(0,4);
+            let dataFormatada = dia + '/' + mes + '/' + ano;
 
-     return dataFormatada
- };
+            return dataFormatada
+        };
+
+        handleMenuFiltro = () => {
+            this.state.menuFiltro === true ? this.setState({menuFiltro: false}) : this.setState({menuFiltro: true})
+        }
+
+        handleChangeCodigo = (e, {value}) => {
+            this.setState({
+                codigo: value
+            }, () => this.filtrarProdutos())
+        }
+
+        handleChangeTitulo = (e, {value}) => {
+            this.setState({
+                titulo: value
+            }, () => this.filtrarProdutos())
+        }
+
+        handleChangeCategoriaProduto = (e, { value }) => {
+            this.setState({
+                idCategoria: value,
+            }, () => this.filtrarProdutos())
+        }
+
+        filtrarProdutos = () => {
+
+            let formData = new FormData();
+
+            formData.append('codigo', this.state.codigo);
+            formData.append('titulo', this.state.titulo);
+            formData.append('idCategoria', this.state.idCategoria);
+
+            axios.post("http://localhost:8082/api/produto/filtrar", formData)
+            .then((response) => {
+                this.setState({
+                    listaProdutos: response.data
+                })
+            })
+
+        }
+
  render(){
     return(
         <div>
+
+        
 
             <div style={{marginTop: '3%'}}>
 
@@ -92,7 +154,19 @@ formatarData = (dataParam) => {
 
                     <Divider />
 
+              
                     <div style={{marginTop: '4%'}}>
+
+                    <Menu compact>
+                               <Menu.Item
+                                   name='menuFiltro'
+                                   active={this.state.menuFiltro === true}
+                                   onClick={this.handleMenuFiltro}
+                               >
+                                   <Icon name='filter' />
+                                   Filtrar
+                               </Menu.Item>
+                           </Menu>
 
                         <Button
                             inverted
@@ -105,7 +179,41 @@ formatarData = (dataParam) => {
                             <Icon name='clipboard outline' />
                             <Link to={'/form-produto'}>Novo</Link>
                         </Button>
-                     
+
+                        { this.state.menuFiltro ?
+                    <Segment>
+                        <Form className="form-filtros">
+                            <Form.Input
+                                icon="search"
+                                value={this.state.codigo}
+                                onChange={this.handleChangeCodigo}
+                                label='Código do Produto'
+                                placeholder='Filtrar por Código do Produto'
+                                labelPosition='left'
+                                width={4}
+                            />
+                    <Form.Group widths='equal'>
+                        <Form.Input
+                        icon="search"
+                        value={this.state.titulo}
+                        onChange={this.handleChangeTitulo}
+                        label='Título'
+                        placeholder='Filtrar por título'
+                        labelPosition='left'
+                        />                              
+                        <Form.Select
+                        placeholder='Filtrar por Categoria'
+                        label='Categoria'
+                        options={this.state.listaCategoriaProduto}
+                        value={this.state.idCategoria}
+                        onChange={this.handleChangeCategoriaProduto}
+                        /> 
+                    </Form.Group>
+                </Form>
+            </Segment>:""
+}
+
+
                         <br/><br/><br/>
                       
                       <Table color='orange' sortable celled>
