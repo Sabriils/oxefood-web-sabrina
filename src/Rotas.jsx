@@ -14,31 +14,33 @@ import FormCupomDesconto from './views/cupomDesconto/FormCupomDesconto';
 import ListCupomDesconto from './views/cupomDesconto/ListCupomDesconto';
 import FormCategoriaProduto from './views/categoriaproduto/FormCategoriaProduto';
 import ListCategoriaProduto from './views/categoriaproduto/ListCategoriaProduto';
+import { ProtectedRoute } from './views/util/ProtectedRoute';
 
 
 function Rotas() {
     return (
         <>
             <Routes>
-                <Route path="/" element={ <Home/> } />
+                <Route path="/" element={ <FormLogin/> } />
+                <Route path="/home" element={<ProtectedRoute> <Home /></ProtectedRoute>}/>
                 
-                <Route path="list-cliente" element={ <ListCliente/> } />
-                <Route path="form-cliente" element={ <FormCliente/> } />
+                <Route path="list-cliente" element={ <ProtectedRoute><ListCliente/></ProtectedRoute>} />
+                <Route path="form-cliente" element={ <ProtectedRoute><FormCliente/> </ProtectedRoute>} />
 
-                <Route path="list-produto" element={ <ListProduto/> } />
-                <Route path="form-produto" element={ <FormProduto/> } />
+                <Route path="list-produto" element={ <ProtectedRoute><ListProduto/> </ProtectedRoute>} />
+                <Route path="form-produto" element={ <ProtectedRoute><FormProduto/> </ProtectedRoute>} />
                 
-                <Route path="form-categoria-produto" element={ <FormCategoriaProduto/> } />
-                <Route path="list-categoria-produto" element={ <ListCategoriaProduto/> } />
+                <Route path="form-categoria-produto" element={<ProtectedRoute><FormCategoriaProduto/> </ProtectedRoute> } />
+                <Route path="list-categoria-produto" element={ <ProtectedRoute><ListCategoriaProduto/></ProtectedRoute> } />
 
-                <Route path="list-entregador" element={ <ListEntregador/> } />
-                <Route path="form-entregador" element={ <FormEntregador/> } />
+                <Route path="list-entregador" element={ <ProtectedRoute><ListEntregador/></ProtectedRoute> } />
+                <Route path="form-entregador" element={<ProtectedRoute> <FormEntregador/></ProtectedRoute> } />
 
-                <Route path="form-material" element={ <FormMaterial/>} />
-                <Route path="list-material" element={ <ListMaterial/> } />
+                <Route path="form-material" element={<ProtectedRoute><FormMaterial/></ProtectedRoute> } />
+                <Route path="list-material" element={ <ProtectedRoute><ListMaterial/></ProtectedRoute> } />
 
-                <Route path="list-cupomdesconto" element={ <ListCupomDesconto/> } />
-                <Route path="form-cupomdesconto" element={ <FormCupomDesconto/> } />
+                <Route path="list-cupomdesconto" element={<ProtectedRoute><ListCupomDesconto/></ProtectedRoute>  } />
+                <Route path="form-cupomdesconto" element={ <ProtectedRoute><FormCupomDesconto/></ProtectedRoute> } />
                
             </Routes>
         </>

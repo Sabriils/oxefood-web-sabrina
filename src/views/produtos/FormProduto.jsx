@@ -76,6 +76,7 @@ function salvar () {
  
         return(
             <div>
+ <MenuSistema />
 
                 <div style={{marginTop: '3%'}}>
 						<Container textAlign='justified' >

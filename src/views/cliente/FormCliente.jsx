@@ -3,7 +3,7 @@ import React, { useState, useEffect} from "react";
 import InputMask from 'react-input-mask';
 import { Link, useLocation } from "react-router-dom";
 import { Button, Container, Divider, Form, Icon, Table, Modal, Header } from 'semantic-ui-react';
-import {mensagemErro, notifyError, notifySuccess } from '../../util/Util';
+import {mensagemErro, notifyError, notifySuccess } from '../util/Util';
 
 
 
@@ -150,6 +150,7 @@ export default function FormCliente (){
 
 	return (
 		<div>
+ 	<MenuSistema />
 
 			<div style={{ marginTop: '3%' }}>
 

@@ -50,6 +50,7 @@ export default function FormCategoriaProduto () {
     return (
 
         <div>
+ <MenuSistema />
 
             <div style={{marginTop: '3%'}}>
 

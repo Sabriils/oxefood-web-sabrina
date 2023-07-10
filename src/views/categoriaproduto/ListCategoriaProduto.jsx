@@ -52,6 +52,7 @@ export default function ListCategoriaProduto () {
 
     return(
         <div>
+ <MenuSistema />
 
             <div style={{marginTop: '3%'}}>
 

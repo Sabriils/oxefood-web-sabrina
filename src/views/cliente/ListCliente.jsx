@@ -89,6 +89,7 @@ formatarData = (dataParam) => {
  render(){
     return(
         <div>
+ <MenuSistema />
 
             <div style={{marginTop: '3%'}}>
 
